@@ -9,6 +9,9 @@ class Author(models.Model):
 
     users = models.OneToOneField(User, on_delete=models.CASCADE,unique=True)
 
+    def __str__(self):
+        return f'{self.users.username}'
+
     def update_rating(self):
         post_auth = Post.objects.filter(author=self.id)
         value_post=sum([r.rating_news for r in post_auth])  # Каждой статьи автора
@@ -26,18 +29,21 @@ class Author(models.Model):
 class Category(models.Model):
     name_category = models.CharField(max_length = 255, unique = True)
 
+    def __str__(self):
+        return f'{self.name_category}'
+
 
 class Post(models.Model):
 
     news = 'NW'
     article = 'AC'
 
-    POST = (
+    POSTS = (
         (news,'Новость'),
         (article, 'Статья')
     )
     post=models.CharField(max_length = 20,
-                            choices = POST,
+                            choices = POSTS,
                             default = news)
 
 
@@ -50,7 +56,10 @@ class Post(models.Model):
     category = models.ManyToManyField(Category, through ='PostCategory')
 
     def __str__(self):
-        return f'{self.text_news[:50]}'
+        return f'{self.titel_news}'
+
+    def get_absolute_url(self):  # добавим абсолютный путь чтобы после создания нас перебрасывало на страницу с товаром
+        return f'/news/{self.id}'
 
     def like(self):
         self.rating_news += 1
@@ -77,6 +86,11 @@ class Comment(models.Model):
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     userse = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.text_comment}'
+
+
 
     def like(self):
         self.rating_coment += 1

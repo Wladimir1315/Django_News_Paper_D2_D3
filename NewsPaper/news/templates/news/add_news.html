@@ -1,0 +1,22 @@
+{% extends 'news/index.html' %}
+
+{% block title %}
+Add News
+{% endblock title %}
+
+<h3>Содержание поста</h3>
+
+{% block content %}
+<br>
+<h3>Содержание поста</h3>
+<div class="container">
+        <div class="col-lg-20 col-md-20 mx-20">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <br>
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
