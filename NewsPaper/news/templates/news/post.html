@@ -1,0 +1,14 @@
+{% extends 'news/index.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+<h1>Новость</h1>
+<h1>{{ post.titel_news|Censor }}</h1>
+<h2>{{ post.time_in|date:'d-M-Y P'}}
+{{ post.author.users.username|Censor }}</h2>
+<h2>{{ post.text_news|Censor }}</h2>
+{% endblock content %}
