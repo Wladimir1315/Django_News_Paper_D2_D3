@@ -1,6 +1,7 @@
 from news.models import User, Author, Category, Post, PostCategory, Comment
 
 user1=User.objects.create(username = 'Ivan')
+
 user2=User.objects.create(username = 'Syva')
 
 author1 = Author.objects.create(users=user1)
