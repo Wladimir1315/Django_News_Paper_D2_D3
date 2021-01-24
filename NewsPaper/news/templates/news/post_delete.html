@@ -1,0 +1,47 @@
+{% extends 'news/index.html' %}
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+
+
+{% block content %}
+
+<h2>Вы действительно хотите удалить новость?</h2>
+
+
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+                <td>
+                    Краткое содержание
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                     {{ news.titel_news|Censor }}
+                </td>
+                <td>
+                    {{news.time_in|date:'d-M-Y P'}}
+                </td>
+                <td>
+                    {{news.text_news|truncatechars:20|Censor}}
+                </td>
+            </tr>
+
+        </table>
+
+< from method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить">
+</form>
+
+
+{% endblock content %}
